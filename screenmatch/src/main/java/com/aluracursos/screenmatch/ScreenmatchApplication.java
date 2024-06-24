@@ -16,8 +16,8 @@ public class ScreenmatchApplication implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 		var consumoAPI = new ConsumoAPI();
-		// var json = consumoAPI.obtenerDatos("http://omdbapi.com/?apikey=57bedfc9&t=game+of+thrones");
-		var json = consumoAPI.obtenerDatos("https://coffee.alexflipnote.dev/random.json");
+		var json = consumoAPI.obtenerDatos("http://omdbapi.com/?apikey=57bedfc9&t=game+of+thrones");
+		// var json = consumoAPI.obtenerDatos("https://coffee.alexflipnote.dev/random.json");
 		System.out.println(json);
 		
 		// throw new UnsupportedOperationException("Unimplemented method 'run'");
