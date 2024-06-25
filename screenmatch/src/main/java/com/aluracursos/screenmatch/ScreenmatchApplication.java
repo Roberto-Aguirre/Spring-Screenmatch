@@ -4,9 +4,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.aluracursos.screenmatch.modelos.DatosSerie;
-import com.aluracursos.screenmatch.services.ConsumoAPI;
-import com.aluracursos.screenmatch.services.ConvierteDatos;
+
+import com.aluracursos.screenmatch.principal.Principal;
+
 
 @SpringBootApplication
 public class ScreenmatchApplication implements CommandLineRunner{
@@ -17,14 +17,29 @@ public class ScreenmatchApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-		var consumoAPI = new ConsumoAPI();
-		var json = consumoAPI.obtenerDatos("http://omdbapi.com/?apikey=57bedfc9&t=game+of+thrones");
-		// var json = consumoAPI.obtenerDatos("https://coffee.alexflipnote.dev/random.json");
-		System.out.println(json);
-		ConvierteDatos conversor = new ConvierteDatos();
-		var datos = conversor.obtenerDatos(json, DatosSerie.class);
-		System.out.println(datos);
-		// throw new UnsupportedOperationException("Unimplemented method 'run'");
+	Principal principal = new Principal();
+	principal.mostrarMenu();
 	}
 
 }
+/* 
+Antiguo Main
+		//var consumoAPI = new ConsumoAPI();
+		// var serie = consumoAPI.obtenerDatos("http://omdbapi.com/?apikey=57bedfc9&t=game+of+thrones");
+		// var episodio = consumoAPI.obtenerDatos("http://omdbapi.com/?apikey=57bedfc9&t=game+of+thrones&Season=1&Episode=1");
+		// var temporada = consumoAPI.obtenerDatos("http://omdbapi.com/?apikey=57bedfc9&t=game+of+thrones&Season=1");
+		// var json = consumoAPI.obtenerDatos("https://coffee.alexflipnote.dev/random.json");
+		// System.out.println(serie);
+		// ConvierteDatos conversor = new ConvierteDatos();
+		// var datos = conversor.obtenerDatos(serie, DatosSerie.class);
+		// System.out.println(datos);
+		
+		// var episodioDatos = conversor.obtenerDatos(episodio, DatosEpisodio.class);
+		// System.out.println(episodioDatos);
+		
+		
+		// var temporadaDatos = conversor.obtenerDatos(temporada, DatosTemporada.class);
+		// System.out.println(temporadaDatos);
+
+		// throw new UnsupportedOperationException("Unimplemented method 'run'");
+ */
