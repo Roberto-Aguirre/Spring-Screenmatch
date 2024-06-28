@@ -40,16 +40,18 @@ public class Principal {
         System.out.println(datos.totaltemporadas());
         System.out.println(temporadas.size());
 
-        for (int i = 0; i < datos.totaltemporadas(); i++) {
-            List<DatosEpisodio> episodiosTemporada = temporadas.get(i).episodios();
-            System.out.println("Temporada: "+temporadas.get(i).numeroTemporada());
+        // for (int i = 0; i < datos.totaltemporadas(); i++) {
+        // List<DatosEpisodio> episodiosTemporada = temporadas.get(i).episodios();
+        // System.out.println("Temporada: "+temporadas.get(i).numeroTemporada());
+
+        // for (int j = 0; j < episodiosTemporada.size(); j++) {
+        // System.out.println(episodiosTemporada.get(j).titulo());
+        // // DEBUG
+        // // System.out.println(i + " " + j);
+        // }
+        // }
             
-            for (int j = 0; j < episodiosTemporada.size(); j++) {
-                System.out.println(episodiosTemporada.get(j).titulo());
-                // DEBUG
-                // System.out.println(i + " " + j);
-            }
-        }
+        temporadas.forEach(t -> t.episodios().forEach(e -> System.out.println(e.titulo())));
 
     }
 
