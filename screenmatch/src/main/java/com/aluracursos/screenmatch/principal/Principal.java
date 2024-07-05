@@ -17,6 +17,7 @@ import com.aluracursos.screenmatch.modelos.DatosSerie;
 import com.aluracursos.screenmatch.modelos.DatosTemporada;
 import com.aluracursos.screenmatch.modelos.Episodio;
 import com.aluracursos.screenmatch.modelos.Serie;
+import com.aluracursos.screenmatch.repository.SerieRepository;
 import com.aluracursos.screenmatch.services.ConsumoAPI;
 import com.aluracursos.screenmatch.services.ConvierteDatos;
 
@@ -28,6 +29,7 @@ public class Principal {
     private final String API_KEY = "apikey=57bedfc9&t=";
     private ConvierteDatos conversor = new ConvierteDatos();
     private List<DatosSerie> datosSeries = new ArrayList<>();
+    private SerieRepository repositorio;
     private String menu = """
             1 - Buscar series
             2 - Buscar episodios
@@ -35,6 +37,10 @@ public class Principal {
 
             0 - Salir
             """;
+
+    public Principal(SerieRepository serieRepository) {
+        this.repositorio = serieRepository;
+    }
 
     public void mostrarMenu() {
         // Menu
@@ -174,19 +180,27 @@ public class Principal {
 
     public void buscarSerieWeb() {
         DatosSerie datos = getDatosSerie();
-        datosSeries.add(datos);
+        Serie serie = new Serie(datos);
+        repositorio.save(serie);
+        //? datosSeries.add(datos);
         // System.out.println(datos);
     }
 
-    public void mostrarSeriesBuscadas(){
-        List<Serie> series = new ArrayList<>();
-        series = datosSeries.stream()
-        .map(d->new Serie(d))
-        .collect(Collectors.toList());
+    public void mostrarSeriesBuscadas() {
+        List<Serie> series = repositorio.findAll();
+         series.forEach(e->System.out.println(e+"\n"));
+       
+       
+       
+       
+        // List<Serie> series = new ArrayList<>();
+        // series = datosSeries.stream()
+        //         .map(d -> new Serie(d))
+        //         .collect(Collectors.toList());
 
-        series.stream()
-        .sorted(Comparator.comparing(Serie::getGenero))
-        .forEach(System.out::println);
+        // series.stream()
+        //         .sorted(Comparator.comparing(Serie::getGenero))
+        //         .forEach(System.out::println);
     }
 }
 

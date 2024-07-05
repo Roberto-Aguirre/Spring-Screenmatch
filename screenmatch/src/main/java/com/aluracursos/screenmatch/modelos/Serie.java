@@ -1,19 +1,46 @@
 package com.aluracursos.screenmatch.modelos;
 
+import java.util.List;
 import java.util.OptionalDouble;
 
-import com.aluracursos.screenmatch.services.ConsultaChatGpt;
-import com.fasterxml.jackson.annotation.JsonAlias;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
+@Entity
+@Table(name = "series")
 public class Serie {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(unique = true)
     private String titulo;
+
     private Integer totaltemporadas;
+
     private Double evaluacion;
+
+    @Enumerated(EnumType.STRING)
     private Genero genero;
+
     private String sinopsis;
+
     private String caratula;
+
     private String actores;
 
+    @Transient
+    private List<Episodio> episodios;
+    
+    public Serie(){
+
+    }
     public Serie(DatosSerie datosSerie) {
         this.titulo = datosSerie.titulo();
         this.totaltemporadas = datosSerie.totaltemporadas();
@@ -23,7 +50,14 @@ public class Serie {
         this.actores = datosSerie.actores();
         // this.sinopsis = ConsultaChatGpt.obtenerTraduccion(datosSerie.sinopsis());
         this.sinopsis = datosSerie.sinopsis();
-        
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getTitulo() {
@@ -84,14 +118,13 @@ public class Serie {
 
     @Override
     public String toString() {
-        return 
-        "Serie [titulo= " + titulo +
-        ", genero= " + genero +  
-        ", totaltemporadas= " + totaltemporadas + 
-        ", evaluacion= " + evaluacion + 
-        ", sinopsis= " + sinopsis + 
-        ", caratula= " + caratula + 
-        ", actores= " + actores
+        return "Serie [titulo= " + titulo +
+                ", genero= " + genero +
+                ", totaltemporadas= " + totaltemporadas +
+                ", evaluacion= " + evaluacion +
+                ", sinopsis= " + sinopsis +
+                ", caratula= " + caratula +
+                ", actores= " + actores
                 + "]";
     }
 
