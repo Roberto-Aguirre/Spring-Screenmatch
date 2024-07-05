@@ -16,6 +16,7 @@ import com.aluracursos.screenmatch.modelos.DatosEpisodio;
 import com.aluracursos.screenmatch.modelos.DatosSerie;
 import com.aluracursos.screenmatch.modelos.DatosTemporada;
 import com.aluracursos.screenmatch.modelos.Episodio;
+import com.aluracursos.screenmatch.modelos.Serie;
 import com.aluracursos.screenmatch.services.ConsumoAPI;
 import com.aluracursos.screenmatch.services.ConvierteDatos;
 
@@ -174,11 +175,18 @@ public class Principal {
     public void buscarSerieWeb() {
         DatosSerie datos = getDatosSerie();
         datosSeries.add(datos);
-        System.out.println(datos);
+        // System.out.println(datos);
     }
 
     public void mostrarSeriesBuscadas(){
-        datosSeries.forEach(System.out::println);
+        List<Serie> series = new ArrayList<>();
+        series = datosSeries.stream()
+        .map(d->new Serie(d))
+        .collect(Collectors.toList());
+
+        series.stream()
+        .sorted(Comparator.comparing(Serie::getGenero))
+        .forEach(System.out::println);
     }
 }
 
