@@ -21,7 +21,9 @@ public class Serie {
         this.caratula = datosSerie.caratula();
         this.genero = Genero.fromString(datosSerie.genero().split(",")[0].trim());
         this.actores = datosSerie.actores();
-        this.sinopsis = ConsultaChatGpt.obtenerTraduccion(datosSerie.sinopsis());
+        // this.sinopsis = ConsultaChatGpt.obtenerTraduccion(datosSerie.sinopsis());
+        this.sinopsis = datosSerie.sinopsis();
+        
     }
 
     public String getTitulo() {
