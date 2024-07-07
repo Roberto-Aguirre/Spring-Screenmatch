@@ -31,8 +31,7 @@ public class Principal {
             4 - Buscar series por titulo
             5 - Top 5 mejores series
             6 - Series por categoria
-            7 - Series por calificacion
-            8 - Series por temporadas
+            7 - Series por calificacion y temporadas.
 
             0 - Salir
             """;
@@ -71,11 +70,8 @@ public class Principal {
                     buscarSeriesPorCategoria();
                     break;
                 case 7:
-                    buscarSeriesPorEvaluacion();
-                    break;
-                case 8:
-                    buscarSeriesPorTemporadas();
-                break;
+                buscarSeriesPorTemporadasAndEvaluacion();
+                    break;    
                 case 0:
                     System.out.println("Saliendo...");
                 default:
@@ -175,20 +171,22 @@ public class Principal {
     }
     
     
-    private void buscarSeriesPorEvaluacion(){
-        System.out.println("Escriba la calificacion minima para buscar series: ");
+    private void buscarSeriesPorTemporadasAndEvaluacion(){
+        System.out.println("Escriba el numero de temporadas que contenga la series: ");
+        var temporadas = teclado.nextLine();
+        System.out.println("Escriba la calificacion minima que contenga la serie: ");
         var evaluacion = teclado.nextLine();
-        List<Serie> seriesPorEvaluacion = repositorio.findByEvaluacion(Double.valueOf(evaluacion));
-        System.out.println("\nLas series con las siguiente evaluacion: "+ evaluacion+ "  son ");
-        seriesPorEvaluacion.forEach(e->System.out.println(e.getTitulo()));
+        List<Serie> seriesPorEvaluacion = repositorio.seriesPorTemporadasYEvaluacion(Integer.valueOf(temporadas),Double.valueOf(evaluacion));
+        System.out.println("\nLas series con las siguiente temporadas: "+ evaluacion+ " y evaluaciones: "+ evaluacion +" son: ");
+        seriesPorEvaluacion.forEach(e->System.out.println("Titulo: "+ e.getTitulo()+ " Temporadas: "+e.getTotaltemporadas()+" Evaluacion: "+ e.getEvaluacion()));
         
     }
     
-    private void buscarSeriesPorTemporadas(){
-        System.out.println("Escriba las temporadas para buscar la serie: ");
-        var temporadas = teclado.nextLine();
-        List<Serie> seriesPorTemporadas = repositorio.findByTotaltemporadas(Integer.valueOf(temporadas));
-        System.out.println("\nLas series con las siguientes "+ temporadas+ " temporadas son: ");
-        seriesPorTemporadas.forEach(e->System.out.println(e.getTitulo()));
-    }
+    // private void buscarSeriesPorTemporadas(){
+    //     System.out.println("Escriba las temporadas para buscar la serie: ");
+    //     var temporadas = teclado.nextLine();
+    //     List<Serie> seriesPorTemporadas = repositorio.findByTotaltemporadas(Integer.valueOf(temporadas));
+    //     System.out.println("\nLas series con las siguientes "+ temporadas+ " temporadas son: ");
+    //     seriesPorTemporadas.forEach(e->System.out.println(e.getTitulo()));
+    // }
 }
