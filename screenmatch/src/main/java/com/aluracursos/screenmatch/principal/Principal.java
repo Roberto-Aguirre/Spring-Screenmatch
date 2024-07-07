@@ -25,12 +25,14 @@ public class Principal {
     private SerieRepository repositorio;
     private List<Serie> series;
     private String menu = """
-            1 - Buscar series
+            \n1 - Buscar series
             2 - Buscar episodios
             3 - Ver series buscadas
             4 - Buscar series por titulo
             5 - Top 5 mejores series
             6 - Series por categoria
+            7 - Series por calificacion
+            8 - Series por temporadas
 
             0 - Salir
             """;
@@ -68,6 +70,12 @@ public class Principal {
                 case 6: 
                     buscarSeriesPorCategoria();
                     break;
+                case 7:
+                    buscarSeriesPorEvaluacion();
+                    break;
+                case 8:
+                    buscarSeriesPorTemporadas();
+                break;
                 case 0:
                     System.out.println("Saliendo...");
                 default:
@@ -156,12 +164,31 @@ public class Principal {
         topSeries.forEach(e -> System.out.println("Serie: " + e.getTitulo() + " Evaluacion: " + e.getEvaluacion()));
 
     }
-    private void buscarSeriesPorCategoria(){
+
+    private void buscarSeriesPorCategoria() {
         System.out.println("Escriba el genero/categoria a buscar: ");
         var genero = teclado.nextLine();
         var categoria = Genero.fromEspanol(genero);
         List<Serie> seriesPorCategoria = repositorio.findByGenero(categoria);
-        System.out.println("Las series de las categorias "+ genero);
-        seriesPorCategoria.forEach(e->System.out.println(e.getTitulo()));
+        System.out.println("Las series de las categorias " + genero);
+        seriesPorCategoria.forEach(e -> System.out.println(e.getTitulo()));
+    }
+    
+    
+    private void buscarSeriesPorEvaluacion(){
+        System.out.println("Escriba la calificacion minima para buscar series: ");
+        var evaluacion = teclado.nextLine();
+        List<Serie> seriesPorEvaluacion = repositorio.findByEvaluacion(Double.valueOf(evaluacion));
+        System.out.println("\nLas series con las siguiente evaluacion: "+ evaluacion+ "  son ");
+        seriesPorEvaluacion.forEach(e->System.out.println(e.getTitulo()));
+        
+    }
+    
+    private void buscarSeriesPorTemporadas(){
+        System.out.println("Escriba las temporadas para buscar la serie: ");
+        var temporadas = teclado.nextLine();
+        List<Serie> seriesPorTemporadas = repositorio.findByTotaltemporadas(Integer.valueOf(temporadas));
+        System.out.println("\nLas series con las siguientes "+ temporadas+ " temporadas son: ");
+        seriesPorTemporadas.forEach(e->System.out.println(e.getTitulo()));
     }
 }

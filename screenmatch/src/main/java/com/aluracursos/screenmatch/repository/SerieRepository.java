@@ -13,5 +13,8 @@ public interface SerieRepository extends JpaRepository<Serie,Long>{
 
     List<Serie> findTop5ByOrderByEvaluacionDesc();
     List<Serie> findByGenero(Genero genero);
+    List<Serie> findByEvaluacion(Double evaluacion);
+    List<Serie> findByTotaltemporadas(Integer totaltemporadas);
+
     
 }
