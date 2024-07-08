@@ -72,5 +72,5 @@ public class SerieService {
     Genero genero = Genero.fromEspanol(categoria);
         return convertirDatos(repository.findByGenero(genero));
     }
-
+    
 }
