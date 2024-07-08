@@ -4,11 +4,14 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javax.swing.text.html.Option;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.aluracursos.screenmatch.dto.EpisodioDTO;
 import com.aluracursos.screenmatch.dto.SerieDTO;
+import com.aluracursos.screenmatch.modelos.Episodio;
 import com.aluracursos.screenmatch.modelos.Serie;
 import com.aluracursos.screenmatch.repository.SerieRepository;
 
@@ -56,6 +59,13 @@ public class SerieService {
             .collect(Collectors.toList());
         }
         return null;
+    }
+
+    public List<EpisodioDTO> obtenerTemporadaPorNumeroTemporada(Long id,Long numeroTemporada) {
+        // System.out.println(repository.episodiosPorTemporada(id, numeroTemporada));
+       return repository.episodiosPorTemporada(id, numeroTemporada).stream()
+       .map(e->new EpisodioDTO(e.getTemporada(),e.getTitulo(),e.getNumeroEpisodio()))
+       .collect(Collectors.toList());
     }
 
 }
