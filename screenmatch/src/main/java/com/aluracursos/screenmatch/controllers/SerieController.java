@@ -4,7 +4,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.aluracursos.screenmatch.dto.EpisodioDTO;
 import com.aluracursos.screenmatch.dto.SerieDTO;
-import com.aluracursos.screenmatch.modelos.Episodio;
 import com.aluracursos.screenmatch.services.SerieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.util.List;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 
@@ -48,6 +48,10 @@ public class SerieController {
     @GetMapping("/{id}/temporadas/{numeroTemporada}")
     public List<EpisodioDTO> getTemporadasPorNumero(@PathVariable Long id, @PathVariable Long numeroTemporada) {
         return serieService.obtenerTemporadaPorNumeroTemporada(id,numeroTemporada);
+    }
+    @GetMapping("/categoria/{nombreGenero}")
+    public List<SerieDTO> getMethodName(@PathVariable String nombreGenero) {
+        return serieService.obtenerSeriesCategoria(nombreGenero);
     }
     
 }

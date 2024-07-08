@@ -4,14 +4,14 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import javax.swing.text.html.Option;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.aluracursos.screenmatch.dto.EpisodioDTO;
 import com.aluracursos.screenmatch.dto.SerieDTO;
-import com.aluracursos.screenmatch.modelos.Episodio;
+import com.aluracursos.screenmatch.modelos.Genero;
 import com.aluracursos.screenmatch.modelos.Serie;
 import com.aluracursos.screenmatch.repository.SerieRepository;
 
@@ -66,6 +66,11 @@ public class SerieService {
        return repository.episodiosPorTemporada(id, numeroTemporada).stream()
        .map(e->new EpisodioDTO(e.getTemporada(),e.getTitulo(),e.getNumeroEpisodio()))
        .collect(Collectors.toList());
+    }
+
+    public List<SerieDTO> obtenerSeriesCategoria(String categoria) {
+    Genero genero = Genero.fromEspanol(categoria);
+        return convertirDatos(repository.findByGenero(genero));
     }
 
 }
