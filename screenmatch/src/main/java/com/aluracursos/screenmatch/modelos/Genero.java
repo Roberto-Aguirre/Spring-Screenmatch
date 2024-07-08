@@ -5,8 +5,9 @@ public enum Genero {
     Romance("Romance","Romance"),
     Comedia("Comedy","Comedia"),
     Drama("Drama","Dráma"),
-    Crimen("Crimen","Crimen");
-
+    Crimen("Crime","Crimen"),
+    Bibliografia("Biography","Bibliografía"),
+    Documental("Documentary","Documental");
 
     private String categoriaOmdb;
     private String categoriaEspanol;

@@ -24,6 +24,11 @@ public class SerieService {
         
 
     }
+    public List<SerieDTO> obtenerLanzamientosMasRecientes(){
+        return convertirDatos(repository.lanzamientosMasRecientes()); 
+    }
+
+
 
     public List<SerieDTO> convertirDatos(List<Serie> listaSeries){
         return listaSeries.stream()
@@ -32,4 +37,5 @@ public class SerieService {
             )
         .collect(Collectors.toList());
     }
+
 }
