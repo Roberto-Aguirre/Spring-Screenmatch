@@ -33,10 +33,11 @@ public class Principal {
             6 - Series por categoria
             7 - Series por calificacion y temporadas.
             8 - Buscar episodios por titulo
+            9 - Mejores 5 episodios por serie
 
             0 - Salir
             """;
-
+    private Optional<Serie> serieBuscada;
     public Principal(SerieRepository serieRepository) {
         this.repositorio = serieRepository;
     }
@@ -75,6 +76,9 @@ public class Principal {
                     break;
                 case 8:
                     buscarEpisodioPorTitulo();
+                    break;
+                case 9:
+                    buscarTop5EpisodiosPorSerie();
                     break;
                 case 0:
                     System.out.println("Saliendo...");
@@ -150,7 +154,7 @@ public class Principal {
         System.out.println("Escribe el nombre de la series a buscar");
         var nombreSerie = teclado.nextLine();
 
-        Optional<Serie> serieBuscada = repositorio.findByTituloContainsIgnoreCase(nombreSerie);
+        serieBuscada = repositorio.findByTituloContainsIgnoreCase(nombreSerie);
         if (serieBuscada.isPresent()) {
             System.out.println("La serie buscada es: " + serieBuscada.get());
         } else {
@@ -200,6 +204,17 @@ public class Principal {
 
     }
 
+    private void buscarTop5EpisodiosPorSerie(){
+        buscarSeriesPorTitulo(); 
+        if (serieBuscada.isPresent()) {
+            Serie serie = serieBuscada.get();
+            List<Episodio> episodiosEncontrados = repositorio.top5MejorEpisodios(serie);
+            episodiosEncontrados.forEach(e->System.out.printf(
+                "\nSerie: %s | Titulo: %s | Capitulo No: %s | Evaluacion: %s | ",
+                e.getSerie().getTitulo(), e.getTitulo(), e.getNumeroEpisodio(), e.getEvaluaciones()));
+        }
+
+    }
     // private void buscarSeriesPorTemporadas(){
     // System.out.println("Escriba las temporadas para buscar la serie: ");
     // var temporadas = teclado.nextLine();
